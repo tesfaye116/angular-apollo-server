@@ -1,5 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
+import { ModalComponent } from '../modal/modal.component';
+import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+
 
 const GET_USERS = gql`
   query {
@@ -7,10 +10,19 @@ const GET_USERS = gql`
       id
       name
       email
-    }
+    }    
   }
 `;
 
+const CREATE_USER = gql`
+  mutation createUser($name: String!, $email: String!) {
+    createUser(name: $name, email: $email) {
+      id
+      name
+      email
+    }
+  }
+`;
 
 @Component({
   selector: 'app-user',
@@ -18,17 +30,20 @@ const GET_USERS = gql`
   styleUrls: ['./user.component.scss']
 })
 
-
 export class UserComponent implements OnInit {
+  modalRef: MdbModalRef<ModalComponent> | null = null;
+
+  name: string = '';
+  email: string = '';
 
   loading: any = false;
   users: any = [];
-  sn: number = 0;
 
-  constructor(
-    private apollo: Apollo
-  ) { }
+  constructor(private apollo: Apollo, private modalService: MdbModalService) { }
 
+  openModal() {
+    this.modalRef = this.modalService.open(ModalComponent)
+  }
   ngOnInit(): void {
     this.getAllUsers();
   }
@@ -44,5 +59,24 @@ export class UserComponent implements OnInit {
         console.table(this.users.users)
       });
   }
+
+  createUser() {
+    this.apollo.mutate({
+      mutation: CREATE_USER,
+      variables: {
+        name: this.name,
+        email: this.email
+      }
+    }).subscribe(({ data }) => {
+      this.loading = false;
+      this.name = '';
+      this.email = '';
+      this.getAllUsers();
+    }, (error) => {
+      this.loading = false;
+      console.log('there was an error sending the query', error);
+    });
+  }
+
 
 }

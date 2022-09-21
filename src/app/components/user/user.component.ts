@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
-import { Subscription } from 'rxjs';
 
 const GET_USERS = gql`
   query {
@@ -12,16 +11,19 @@ const GET_USERS = gql`
   }
 `;
 
-@Component({
 
+@Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
+
+
 export class UserComponent implements OnInit {
 
   loading: any = false;
-  users: any = []
+  users: any = [];
+  sn: number = 0;
 
   constructor(
     private apollo: Apollo

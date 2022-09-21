@@ -1,0 +1,27 @@
+html,
+body,
+.intro {
+  height: 100%;
+  margin-top: 4rem;
+  background-color: #ffffff;
+}
+
+table td,
+table th {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.card {
+  border-radius: 10.5rem !important;
+}
+
+.table-scroll {
+  border-radius: 0.5rem;
+}
+
+thead {
+  top: 0;
+  position: sticky;
+}

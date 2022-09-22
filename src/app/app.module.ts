@@ -7,6 +7,9 @@ import { PostComponent } from './components/post/post.component';
 import { UserComponent } from './components/user/user.component';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 import { MdbAccordionModule } from 'mdb-angular-ui-kit/accordion';
 import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
@@ -23,14 +26,13 @@ import { MdbScrollspyModule } from 'mdb-angular-ui-kit/scrollspy';
 import { MdbTabsModule } from 'mdb-angular-ui-kit/tabs';
 import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
-import { ModalComponent } from './components/modal/modal.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     PostComponent,
     UserComponent,
-    ModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +54,8 @@ import { ModalComponent } from './components/modal/modal.component';
     MdbTabsModule,
     MdbTooltipModule,
     MdbValidationModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

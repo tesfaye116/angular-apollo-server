@@ -1,82 +1,67 @@
 import { Component, OnInit } from '@angular/core';
-import { Apollo, gql } from 'apollo-angular';
-import { ModalComponent } from '../modal/modal.component';
-import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { Apollo } from 'apollo-angular';
+import { GET_USERS, ADD_USER } from '../../graphql/graphql.queries'
 
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl,
+} from '@angular/forms';
 
-const GET_USERS = gql`
-  query {
-    users {
-      id
-      name
-      email
-    }    
-  }
-`;
-
-const CREATE_USER = gql`
-  mutation createUser($name: String!, $email: String!) {
-    createUser(name: $name, email: $email) {
-      id
-      name
-      email
-    }
-  }
-`;
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  styleUrls: ['./user.component.scss'],
 })
-
 export class UserComponent implements OnInit {
-  modalRef: MdbModalRef<ModalComponent> | null = null;
-
-  name: string = '';
-  email: string = '';
-
   loading: any = false;
   users: any = [];
+  error: any;
+  name!: String;
+  email!: String;
 
-  constructor(private apollo: Apollo, private modalService: MdbModalService) { }
+  constructor(private apollo: Apollo) {}
 
-  openModal() {
-    this.modalRef = this.modalService.open(ModalComponent)
-  }
   ngOnInit(): void {
     this.getAllUsers();
   }
 
   getAllUsers() {
     this.loading = true;
-    this.apollo.watchQuery<any>({
-      query: GET_USERS
-    }).valueChanges.
-      subscribe(({ data }) => {
+    this.apollo
+      .watchQuery<any>({
+        query: GET_USERS,
+      })
+      .valueChanges.subscribe(({ data }) => {
         this.loading = false;
         this.users = data;
-        console.table(this.users.users)
+        console.table(this.users.users);
       });
   }
 
-  createUser() {
-    this.apollo.mutate({
-      mutation: CREATE_USER,
-      variables: {
-        name: this.name,
-        email: this.email
-      }
-    }).subscribe(({ data }) => {
-      this.loading = false;
-      this.name = '';
-      this.email = '';
-      this.getAllUsers();
-    }, (error) => {
-      this.loading = false;
-      console.log('there was an error sending the query', error);
-    });
+  userForm = new FormGroup({
+    name: new FormControl('', Validators.required),
+    email: new FormControl('', Validators.required),
+  });
+
+  addUser() {
+    this.apollo
+      .mutate({
+        mutation: ADD_USER,
+        variables: {
+          name: this.userForm.value.name,
+          email: this.userForm.value.email,
+        },
+        refetchQueries: [
+          {
+            query: GET_USERS,
+          },
+        ],
+      })
+      .subscribe(({ data }: any) => {
+        (this.users = data.createUser), this.userForm.reset();
+      });
   }
-
-
 }

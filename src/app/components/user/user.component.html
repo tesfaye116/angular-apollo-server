@@ -1,83 +1,106 @@
-
-<div class="container mt-5">
-  <h3>User Registration</h3>
-  <div class="main d-flex justify-content-center aligh-item-center">
-    <div *ngIf="error">
-      <p>Error: {{ error }}</p>
+<div class="container mt-4">
+  <div class="row mt-4 text-center">
+    <div class="col-md-12">
+      <h2 class="card"><i class="fa fa-user-plus"></i> Add User</h2>
     </div>
-  
-    <form class="form-group" [formGroup]="userForm" (ngSubmit)="addUser()">
-      <input
-        class="form-control"
-        type="text"
-        name="name"
-        placeholder="Enter name"
-        formControlName="name"
-      />
-      <br />
-      <input
-        class="form-control"
-        type="text"
-        name="email"
-        placeholder="Enter email"
-        formControlName="email"
-      />
-      <br />
-      <button class="submit-button" [disabled]="userForm.invalid">SUBMIT</button>
-    </form>
   </div>
-</div>
+  <main class="main d-flex justify-content-center aligh-item-center">
+    <form class="form-group" [formGroup]="userForm" (ngSubmit)="addUser()">
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-user"></i>
+            </span>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Name"
+            formControlName="name"
+            name="name"
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-envelope"></i>
+            </span>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Email"
+            formControlName="email"
+            name="email"
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <button
+          type="submit"
+          class="btn btn-primary btn-block"
+          [disabled]="!userForm.valid"
+        >
+          <i class="fa fa-paper-plane fa-1x"></i> save
+        </button>
+      </div>
+    </form>
+  </main>
 
-
-<main class="intro">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-12">
-        <div class="card shadow-2-strong">
-          <div class="card-body p-0">
-            <!-- Button trigger modal -->
-            <div
-              class="table-responsive table-scroll"
-              data-mdb-perfect-scrollbar="true"
-            >
-              <table class="table table-light mb-0">
-                <thead style="background-color: #3d3535">
-                  <tr class="text-uppercase text-dark font-weight-bold">
-                    <th scope="col">#SN</th>
-                    <th scope="col">NAME</th>
-                    <th scope="col">EMAIL</th>
-                    <th scope="col">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    class="text-uppercase text-light"
-                    *ngFor="let user of users.users"
-                  >
-                    <td>{{ user.id }}</td>
-                    <td>{{ user.name }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>
-                      <button
-                        type="button"
-                        class="btn btn-primary btn-floating"
-                      >
-                        <i class="fa fa-edit"></i>
-                      </button>
-                      <button
-                        type="button"
-                        class="btn btn-danger btn-floating btn-rounded"
-                      >
-                        <i class="fa fa-trash"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+  <main class="intro">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12">
+          <div class="card shadow-2-strong">
+            <div class="card-body p-0">
+              <!-- Button trigger modal -->
+              <div
+                class="table-responsive table-scroll"
+                data-mdb-perfect-scrollbar="true"
+              >
+                <table class="table table-light mb-0 table-striped">
+                  <thead>
+                    <tr class="text-uppercase text-dark font-weight-bold">
+                      <th scope="col">#SN</th>
+                      <th scope="col">NAME</th>
+                      <th scope="col">EMAIL</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      class="text-uppercase text-light"
+                      *ngFor="let user of users.users; let i = index"
+                    >
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ user.name }}</td>
+                      <td>{{ user.email }}</td>
+                      <td>
+                        <button
+                          type="button"
+                          class="btn btn-primary btn-floating btn-rounded"
+                          (click)="showEditUserForm(user.id)"
+                        >
+                          <i class="fa fa-edit"></i>
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-danger btn-floating btn-rounded"
+                        >
+                          <i class="fa fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</main>
+  </main>
+</div>

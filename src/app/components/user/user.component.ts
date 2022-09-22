@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { GET_USERS, ADD_USER, UPDATE_USER, DELETE_USER } from '../../graphql/graphql.queries';
-
 import {
-  FormGroup,
-  Validators,
-  FormControl,
-} from '@angular/forms';
+  GET_USERS,
+  ADD_USER,
+  UPDATE_USER,
+  DELETE_USER,
+} from '../../graphql/graphql.queries';
+
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-user',
@@ -16,13 +17,23 @@ import {
 export class UserComponent implements OnInit {
   loading: any = false;
   users: any = [];
-  userss: any = {}
+  editUser: any = {};
+  isadd!: Boolean;
+  isedit!: Boolean;
+
+
   error: any;
-  name!: String;
-  email!: String;
 
-  constructor(private apollo: Apollo) {}
+  constructor(private apollo: Apollo) { }
 
+  openAddForm() {
+    this.isadd = true;
+    this.isedit = false;
+  }
+  openEditForm() {
+    this.isedit = true;
+    this.isadd = false;
+  }
   ngOnInit(): void {
     this.getAllUsers();
   }
@@ -61,59 +72,7 @@ export class UserComponent implements OnInit {
       .subscribe(({ data }: any) => {
         (this.users = data.createUser), this.userForm.reset();
       });
+
   }
 
-  showEditUserForm(id: any) {
-    console.log(id)
-    this.apollo
-    .watchQuery<any>({
-      query: GET_USERS,
-    })
-    .valueChanges.subscribe(({ data }: any)=>{
-      this.userss = data.users.filter((user: any) => user.id === id)
-
-    })
-  }
-
-
-
-
-
-
-  deleteUser(id: any) {
-    this.apollo
-      .mutate({
-        mutation: DELETE_USER,
-        variables: {
-          id: id,
-        },
-        refetchQueries: [
-          {
-            query: GET_USERS,
-          },
-        ],
-      })
-      .subscribe(({ data }: any) => {
-        (this.users = data.deleteUser), this.userForm.reset();
-      });
-  }
-
-  updateUser() {
-    this.apollo
-      .mutate({
-        mutation: UPDATE_USER,
-        variables: {
-          name: this.name,
-          email: this.email,
-        },
-        refetchQueries: [
-          {
-            query: GET_USERS,
-          },
-        ],
-      })
-      .subscribe(({ data }: any) => {
-        (this.users = data.updateUser), this.userForm.reset();
-      });
-  }
 }

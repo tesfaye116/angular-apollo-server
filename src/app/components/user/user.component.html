@@ -1,10 +1,10 @@
 <!-- Add form for User -->
-<div *ngIf="isadd">
+<div *ngIf="isadd"  class="card shadow-sm">
   <section class="main mt-3 d-flex justify-content-center aligh-item-center">
     <form class="form-group" [formGroup]="userForm" (ngSubmit)="addUser()">
-      <h3>Add User</h3>
+      <p class="note note-success text-center">Add User</p>
       <div class="form-group">
-        <div class="input-group">
+        <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text">
               <i class="fa fa-user"></i>
@@ -51,10 +51,10 @@
 </div>
 
 <!-- Edit form for User -->
-<div *ngIf="isedit">
+<div *ngIf="isedit" class="card shadow-sm">
   <section class="main mt-3 d-flex justify-content-center aligh-item-center">
-    <form class="form-group" [formGroup]="userForm">
-      <h3>Edit User</h3>
+    <form class="form-group " [formGroup]="userForm" (ngSubmit)="updateUser()">
+      <p class="note note-info text-center">Edit User</p>
       <div class="form-group">
         <div class="input-group">
           <div class="input-group-prepend">
@@ -140,6 +140,7 @@
                       <button
                         type="button"
                         class="btn btn-primary btn-floating btn-rounded"
+                        (click)="showEditForm(user)"
                       >
                         <i class="fa fa-edit"></i>
                       </button>

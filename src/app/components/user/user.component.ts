@@ -17,6 +17,8 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 export class UserComponent implements OnInit {
   loading: any = false;
   users: any = [];
+  name!: String;
+  email!: String;
   editUser: any = {};
   isadd!: Boolean;
   isedit!: Boolean;
@@ -29,6 +31,7 @@ export class UserComponent implements OnInit {
   openAddForm() {
     this.isadd = true;
     this.isedit = false;
+    this.userForm.reset();
   }
   openEditForm() {
     this.isedit = true;
@@ -74,5 +77,38 @@ export class UserComponent implements OnInit {
       });
 
   }
+
+  showEditForm(user: any) {
+    this.openEditForm();
+    this.editUser = user;
+    this.userForm.setValue({
+      name: user.name,
+      email: user.email,
+    });
+  }
+
+
+  updateUser() {
+    this.apollo
+      .mutate({
+        mutation: UPDATE_USER,
+        variables: {
+          id: this.editUser.id,
+          name: this.userForm.value.name,
+          email: this.userForm.value.email,
+        },
+        refetchQueries: [
+          {
+            query: GET_USERS,
+          },
+        ],
+      })
+      .subscribe(({ data }: any) => {
+        this.users = data.updateUser
+        this.userForm.reset();
+        this.getAllUsers()
+      });
+  }
+
 
 }

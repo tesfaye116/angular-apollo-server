@@ -1,8 +1,11 @@
 <!-- Add form for User -->
-<div *ngIf="isadd"  class="card shadow-sm">
-  <section class="main mt-3 d-flex justify-content-center aligh-item-center">
+<div *ngIf="isadd" class="card shadow-sm">
+  <section class="main mt-3 d-flex justify-content-center aligh-item-center transtion">
     <form class="form-group" [formGroup]="userForm" (ngSubmit)="addUser()">
-      <p class="note note-success text-center">Add User</p>
+      <button type="button" class="close note note-info" aria-label="Close" (click)="closeForm()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <p class="note note-primary text-center fancy">Add User</p>
       <div class="form-group">
         <div class="input-group mb-3">
           <div class="input-group-prepend">
@@ -12,7 +15,7 @@
           </div>
           <input
             type="text"
-            class="form-control"
+            class="form-control transtion"
             placeholder="Name"
             formControlName="name"
             name="name"
@@ -29,7 +32,7 @@
           </div>
           <input
             type="text"
-            class="form-control"
+            class="form-control transtion"
             placeholder="Email"
             formControlName="email"
             name="email"
@@ -40,7 +43,7 @@
       <div class="form-group">
         <button
           type="submit"
-          class="btn btn-primary btn-block"
+          class="btn btn-primary btn-block fancy"
           [disabled]="!userForm.valid"
         >
           <i class="fa fa-paper-plane fa-1x"></i> save
@@ -52,8 +55,11 @@
 
 <!-- Edit form for User -->
 <div *ngIf="isedit" class="card shadow-sm">
-  <section class="main mt-3 d-flex justify-content-center aligh-item-center">
-    <form class="form-group " [formGroup]="userForm" (ngSubmit)="updateUser()">
+  <section class="main mt-3 d-flex justify-content-center aligh-item-center transtion">
+    <form class="form-group" [formGroup]="userForm" (ngSubmit)="updateUser()">
+      <button type="button" class="close note note-info" aria-label="Close" (click)="closeForm()">
+        <span aria-hidden="true">&times;</span>
+      </button>
       <p class="note note-info text-center">Edit User</p>
       <div class="form-group">
         <div class="input-group">
@@ -64,7 +70,7 @@
           </div>
           <input
             type="text"
-            class="form-control"
+            class="form-control transtion"
             placeholder="Name"
             formControlName="name"
             name="name"
@@ -81,7 +87,7 @@
           </div>
           <input
             type="text"
-            class="form-control"
+            class="form-control transtion"
             placeholder="Email"
             formControlName="email"
             name="email"
@@ -92,7 +98,7 @@
       <div class="form-group">
         <button
           type="submit"
-          class="btn btn-primary btn-block"
+          class="btn btn-primary btn-block fancy transtion"
           [disabled]="!userForm.valid"
         >
           <i class="fa fa-paper-plane fa-1x"></i> Update
@@ -110,7 +116,7 @@
           <div class="card-body p-0">
             <!-- Button trigger modal -->
             <button
-              class="btn btn-primary float-right mr-4 mt-1"
+              class="btn btn-primary float-right mr-1 transtion"
               (click)="openAddForm()"
             >
               <i class="fa fa-plus-circle fa-1x"></i> add user
@@ -121,7 +127,7 @@
             >
               <table class="table table-light mb-0 table-striped">
                 <thead>
-                  <tr class="text-uppercase text-dark font-weight-bold">
+                  <tr class="text-uppercase text-dark font-weight-bold transtion">
                     <th scope="col">#SN</th>
                     <th scope="col">NAME</th>
                     <th scope="col">EMAIL</th>
@@ -129,8 +135,11 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <tr *ngIf="users.users.length === 0">
+                    <td colspan="4" class="text-center">No data found . . .</td>
+                  </tr>
                   <tr
-                    class="text-uppercase text-light"
+                    class="text-uppercase text-light transtion"
                     *ngFor="let user of users.users; let i = index"
                   >
                     <td>{{ i + 1 }}</td>
@@ -139,14 +148,15 @@
                     <td>
                       <button
                         type="button"
-                        class="btn btn-primary btn-floating btn-rounded"
+                        class="btn btn-primary btn-floating btn-rounded transtion"
                         (click)="showEditForm(user)"
                       >
                         <i class="fa fa-edit"></i>
                       </button>
                       <button
                         type="button"
-                        class="btn btn-danger btn-floating btn-rounded"
+                        class="btn btn-danger btn-floating btn-rounded transtion"
+                        (click)="deleteUser(user.id)"
                       >
                         <i class="fa fa-trash"></i>
                       </button>

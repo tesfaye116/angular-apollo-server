@@ -7,7 +7,7 @@ body,
 }
 
 table td {
-  text-overflow: ellipsis;
+  text-overflow:clip;
   white-space: nowrap;
   overflow: hidden;
   color: black
@@ -31,13 +31,6 @@ thead {
   position: sticky;
 }
 
-
-.btn:hover{
-  transform: scale(1.3);
-  transition: all .2s ease-in-out;
-}
-
-
 h3{
   font-size: 22px;
   font-weight: bold;
@@ -50,4 +43,34 @@ h3{
 
 .note {
   font-family: cursive;
+}
+
+.fancy{
+  animation: pulse 3s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+.transtion{
+
+@keyframes transtion {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+  animation: transtion 1s;
 }

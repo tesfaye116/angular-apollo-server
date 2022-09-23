@@ -2,10 +2,10 @@
 <div *ngIf="isadd" class="card shadow-sm">
   <section class="main mt-3 d-flex justify-content-center aligh-item-center transtion">
     <form class="form-group" [formGroup]="userForm" (ngSubmit)="addUser()">
-      <button type="button" class="close note note-info" aria-label="Close" (click)="closeForm()">
+      <button type="button" class="close transtion note note-info" aria-label="Close" (click)="closeForm()">
         <span aria-hidden="true">&times;</span>
       </button>
-      <p class="note note-primary text-center fancy">Add User</p>
+      <p class="note note-primary text-center">Add User</p>
       <div class="form-group">
         <div class="input-group mb-3">
           <div class="input-group-prepend">

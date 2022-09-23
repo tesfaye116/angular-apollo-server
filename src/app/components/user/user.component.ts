@@ -15,11 +15,15 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
   styleUrls: ['./user.component.scss'],
 })
 export class UserComponent implements OnInit {
-  loading: any = false;
   users: any = [];
   editUser: any = {};
   isadd!: Boolean;
   isedit!: Boolean;
+
+  isSuccess!: Boolean;
+  isDelete!: Boolean;
+  isUpdated!: Boolean;
+  
 
   error: any;
 
@@ -39,13 +43,11 @@ export class UserComponent implements OnInit {
   }
 
   getAllUsers() {
-    this.loading = true;
     this.apollo
       .watchQuery<any>({
         query: GET_USERS,
       })
       .valueChanges.subscribe(({ data }) => {
-        this.loading = false;
         this.users = data;
       });
   }
@@ -70,6 +72,7 @@ export class UserComponent implements OnInit {
         ],
       })
       .subscribe(({ data }: any) => {
+        this.isSuccess = true;
         (this.users = data.createUser), this.userForm.reset();
       });
   }
@@ -99,6 +102,7 @@ export class UserComponent implements OnInit {
         ],
       })
       .subscribe(({ data }: any) => {
+        this.isUpdated = true;
         this.users = data.updateUser;
         this.userForm.reset();
         this.getAllUsers();
@@ -119,6 +123,7 @@ export class UserComponent implements OnInit {
         ],
       })
       .subscribe(({ data }: any) => {
+        this.isDelete = true;
         this.users = data.deleteUser;
         this.getAllUsers();
       });

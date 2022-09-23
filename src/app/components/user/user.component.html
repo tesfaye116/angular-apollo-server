@@ -1,8 +1,15 @@
 <!-- Add form for User -->
 <div *ngIf="isadd" class="card shadow-sm">
-  <section class="main mt-3 d-flex justify-content-center aligh-item-center transtion">
+  <section
+    class="main mt-3 d-flex justify-content-center aligh-item-center transtion"
+  >
     <form class="form-group" [formGroup]="userForm" (ngSubmit)="addUser()">
-      <button type="button" class="close transtion note note-info" aria-label="Close" (click)="closeForm()">
+      <button
+        type="button"
+        class="close transtion note note-info"
+        aria-label="Close"
+        (click)="closeForm()"
+      >
         <span aria-hidden="true">&times;</span>
       </button>
       <p class="note note-primary text-center">Add User</p>
@@ -55,9 +62,16 @@
 
 <!-- Edit form for User -->
 <div *ngIf="isedit" class="card shadow-sm">
-  <section class="main mt-3 d-flex justify-content-center aligh-item-center transtion">
+  <section
+    class="main mt-3 d-flex justify-content-center aligh-item-center transtion"
+  >
     <form class="form-group" [formGroup]="userForm" (ngSubmit)="updateUser()">
-      <button type="button" class="close note note-info" aria-label="Close" (click)="closeForm()">
+      <button
+        type="button"
+        class="close note note-info"
+        aria-label="Close"
+        (click)="closeForm()"
+      >
         <span aria-hidden="true">&times;</span>
       </button>
       <p class="note note-info text-center">Edit User</p>
@@ -112,8 +126,62 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-12">
-        <div class="card shadow-2-strong">
+        <div class="card shadow-5-strong border">
           <div class="card-body p-0">
+            <!-- Add Message -->
+            <div
+              class="alert alert-success alert-dismissible fade show transtion"
+              role="alert"
+              *ngIf="isSuccess"
+              [@fadeInOut]
+            >
+              <strong>Success!</strong> User added successfully.
+              <button
+                type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close"
+                (click)="isSuccess = false"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <!-- Delete Message -->
+            <div
+              class="alert alert-danger alert-dismissible fade show transtion"
+              role="alert"
+              *ngIf="isDelete"
+            >
+              <strong>Success!</strong> User deleted successfully.
+              <button
+                type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close"
+                (click)="isDelete = false"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <!-- Update Message -->
+            <div
+              class="alert alert-info alert-dismissible fade show transtion"
+              role="alert"
+              *ngIf="isUpdated"
+            >
+              <strong>Success!</strong> User updated successfully.
+              <button
+                type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close"
+                (click)="isUpdated = false"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
             <!-- Button trigger modal -->
             <button
               class="btn btn-primary float-right mr-1 transtion"
@@ -127,7 +195,9 @@
             >
               <table class="table table-light mb-0 table-striped">
                 <thead>
-                  <tr class="text-uppercase text-dark font-weight-bold transtion">
+                  <tr
+                    class="text-uppercase text-dark font-weight-bold transtion"
+                  >
                     <th scope="col">#SN</th>
                     <th scope="col">NAME</th>
                     <th scope="col">EMAIL</th>

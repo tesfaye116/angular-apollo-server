@@ -1,10 +1,26 @@
 <nav class="navbar navbar-light bg-dark text-white">
   <div class="container-fluid">
     <i class="fab fa-angular fa-3x"></i>
-    <a class="navbar-brand font-weight-bolder">Apollo Client</a>
-    <div class="d-flex justify-content-around">
-      <div class="fa fa-code fa-2x mr-4"></div>
-      <div class="fab fa-github fa-2x"></div>
+    <a class="navbar-brand font-weight-bolder"
+      >Apollo <span class="text-warning">Client</span>
+    </a>
+    <div class="d-flex justify-content-center">
+      <a
+        class="btn btn-outline-light"
+        routerLink="/users"
+        routerLinkActive="active"
+      >
+        <i class="fas fa-user mr-1"></i>
+        <span>User</span>
+      </a>
+      <a
+        class="btn btn-outline-light"
+        routerLink="/posts"
+        routerLinkActive="active"
+      >
+        <i class="fas fa-sticky-note mr-1"></i>
+        <span>Post</span>
+      </a>
     </div>
   </div>
 </nav>

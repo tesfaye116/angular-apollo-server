@@ -23,7 +23,6 @@ export class UserComponent implements OnInit {
   isSuccess!: Boolean;
   isDelete!: Boolean;
   isUpdated!: Boolean;
-  
 
   error: any;
 
@@ -129,8 +128,7 @@ export class UserComponent implements OnInit {
       });
   }
 
-
-  closeForm(){
+  closeForm() {
     this.isadd = false;
     this.isedit = false;
   }

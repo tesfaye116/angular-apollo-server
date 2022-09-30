@@ -1,1 +1,64 @@
-<p>post works!</p>
+<div class="container col-md-12 mt-5">
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="col-lg-8">
+      <div class="card shadow-lg">
+        <div class="card-header">
+          <i class="fas fa-plus-circle"></i> Create Post
+        </div>
+        <div class="card-body col-lg-12">
+          <form>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">
+                    <i class="fas fa-heading"></i>
+                  </span>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="title"
+                  placeholder="Enter title"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <angular-editor
+                [config]="config"
+                placeholder="Enter the content here"
+              ></angular-editor>
+            </div>
+            <div class="form-group">
+              <div
+                class="row d-flex justify-content-between align-items-center"
+              >
+                <div class="col-md-8">
+                  <select class="custom-select">
+                    <option selected>Select the User</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="defaultCheck1"
+                    />
+                    <label class="form-check-label" for="defaultCheck1">
+                      <small>isPublished</small>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

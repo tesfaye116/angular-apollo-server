@@ -1,4 +1,4 @@
-import { gql } from 'apollo-angular'
+import { gql } from 'apollo-angular';
 
 const GET_USERS = gql`
   query {
@@ -39,6 +39,76 @@ const DELETE_USER = gql`
   }
 `;
 
+//For POST Query and Mutation
+const GET_POSTS = gql`
+  query {
+    posts {
+      id
+      title
+      content
+      published
+      author {
+        name
+        email
+      }
+    }
+  }
+`;
 
+const ADD_POST = gql`
+  mutation createPosts(
+    $title: String!
+    $content: String!
+    $published: Boolean!
+    $authorId: ID!
+  ) {
+    createPost(title: $title, content: $content, published: $published) {
+      id
+      title
+      body
+      published
+    }
+  }
+`;
 
-export { GET_USERS, ADD_USER, UPDATE_USER, DELETE_USER }
+const UPDATE_POST = gql`
+  mutation updatePosts(
+    $id: ID!
+    $title: String!
+    $content: String!
+    $published: Boolean!
+    $authorId: ID!
+  ) {
+    updatePost(
+      id: $id
+      title: $title
+      content: $content
+      published: $published
+      authorId: $authorId
+    ) {
+      id
+      title
+      body
+      published
+    }
+  }
+`;
+
+const DELETE_POST = `
+  mutation deletePosts($id: ID!){
+    deletePosts(id: $id){
+      title
+}
+}
+`;
+
+export {
+  GET_USERS,
+  ADD_USER,
+  UPDATE_USER,
+  DELETE_USER,
+  GET_POSTS,
+  ADD_POST,
+  UPDATE_POST,
+  DELETE_POST,
+};

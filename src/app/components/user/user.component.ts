@@ -27,16 +27,6 @@ export class UserComponent implements OnInit {
   error: any;
 
   constructor(private apollo: Apollo) {}
-
-  openAddForm() {
-    this.isadd = true;
-    this.isedit = false;
-    this.userForm.reset();
-  }
-  openEditForm() {
-    this.isedit = true;
-    this.isadd = false;
-  }
   ngOnInit(): void {
     this.getAllUsers();
   }
@@ -126,6 +116,16 @@ export class UserComponent implements OnInit {
         this.users = data.deleteUser;
         this.getAllUsers();
       });
+  }
+
+  openAddForm() {
+    this.isadd = true;
+    this.isedit = false;
+    this.userForm.reset();
+  }
+  openEditForm() {
+    this.isedit = true;
+    this.isadd = false;
   }
 
   closeForm() {

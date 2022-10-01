@@ -55,17 +55,23 @@ const GET_POSTS = gql`
   }
 `;
 
+//Post Quary and Mutation
 const ADD_POST = gql`
   mutation createPosts(
     $title: String!
     $content: String!
     $published: Boolean!
-    $authorId: ID!
+    $author: ID!
   ) {
-    createPost(title: $title, content: $content, published: $published) {
+    createPosts(
+      title: $title
+      content: $content
+      published: $published
+      author: $author
+    ) {
       id
       title
-      body
+      content
       published
     }
   }
@@ -77,18 +83,18 @@ const UPDATE_POST = gql`
     $title: String!
     $content: String!
     $published: Boolean!
-    $authorId: ID!
+    $author: ID!
   ) {
     updatePost(
       id: $id
       title: $title
       content: $content
       published: $published
-      authorId: $authorId
+      author: $author
     ) {
       id
       title
-      body
+      content
       published
     }
   }
@@ -98,8 +104,8 @@ const DELETE_POST = `
   mutation deletePosts($id: ID!){
     deletePosts(id: $id){
       title
-}
-}
+    }
+  }
 `;
 
 export {

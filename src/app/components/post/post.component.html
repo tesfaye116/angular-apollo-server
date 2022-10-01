@@ -6,7 +6,7 @@
           <i class="fas fa-plus-circle"></i> Create Post
         </div>
         <div class="card-body col-lg-12">
-          <form>
+          <form (ngSubmit)="addPost()" [formGroup]="postsForm">
             <div class="form-group">
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -15,49 +15,96 @@
                   </span>
                 </div>
                 <input
+                  id="title"
                   type="text"
                   class="form-control"
-                  id="title"
-                  placeholder="Enter title"
+                  formControlName="title"
+                  placeholder="Enter title . . ."
                 />
               </div>
             </div>
             <div class="form-group">
-              <angular-editor
-                [config]="config"
-                placeholder="Enter the content here"
-              ></angular-editor>
+              <div
+                class="card col-lg-12 shadow-md"
+                style="border: 1px solid #c0c0c0"
+              >
+                <small>
+                  <i class="fas fa-pencil-alt"></i> Enter the content
+                </small>
+                <angular-editor
+                  [config]="config"
+                  formControlName="content"
+                ></angular-editor>
+              </div>
             </div>
             <div class="form-group">
-              <div
-                class="row d-flex justify-content-between align-items-center"
-              >
-                <div class="col-md-8">
-                  <select class="custom-select">
-                    <option selected>Select the User</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
+              <div class="row d-flex justify-content-evenly align-items-center">
+                <div class="col-md-9">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">
+                        <i class="fas fa-user"></i>
+                      </span>
+                    </div>
+                    <select
+                      id="author"
+                      class="custom-select"
+                      formControlName="author"
+                    >
+                      <option value="">Select Author</option>
+                      <option *ngFor="let user of users" [value]="user.id">
+                        {{ user.name }}
+                      </option>
+                    </select>
+                  </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="form-check">
+                <div class="col-md-3">
+                  <div class="custom-control custom-switch">
                     <input
-                      class="form-check-input"
+                      id="customSwitch1"
                       type="checkbox"
-                      value=""
-                      id="defaultCheck1"
+                      class="custom-control-input"
+                      formControlName="published"
                     />
-                    <label class="form-check-label" for="defaultCheck1">
-                      <small>isPublished</small>
+                    <label class="custom-control-label" for="customSwitch1">
+                      {{
+                        postsForm.value.published
+                          ? "Published"
+                          : "Not Published"
+                      }}
                     </label>
                   </div>
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button
+              type="submit"
+              class="btn btn-dark btn-block"
+              [disabled]="!postsForm.valid"
+            >
+              <i class="fas fa-paper-plane"></i> Submit
+            </button>
           </form>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isSuccess" class="messages col-md-12">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle"></i>
+        <strong>Success!</strong> Post has been created successfully.
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
     </div>
   </div>
